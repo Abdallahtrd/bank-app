@@ -4,7 +4,7 @@ class Account:
         self.pin = pin
         self.account_number = account_number
         self.history = []
-        
+       
     def deposit(self,amount):
         if amount <= 0:
             #This part makes sure the amount to be deposited is eligible in this case higher than zero
@@ -12,9 +12,10 @@ class Account:
             return 
         #This part deposits the amount into the account and records it.
         self.balance += amount
-        self.history.append(("Deposits",amount))
-        return amount
-
+        checker = ("deposits",amount)
+        self.transaction_recorder(checker)
+        return checker
+   
     def withdraw(self, amount):
         #This checks if the amount entered is valid for transaction
         if amount <= 0:
@@ -24,10 +25,19 @@ class Account:
         if amount <= self.balance:
             #If this part runs it means a withdrawal was successful
             self.balance-=amount
-            self.history.append(('Withdrawal',amount))
+            checker = ("withdrawals",amount)
+            self.transaction_recorder(checker)
+            return checker 
         else:
             #This part means there's no funds to withdraw
             print("Insufficient Funds")
             return
-        return amount
+
+    
+    def transaction_recorder(self,record):
+        self.history.append(record)
+        
+       
+
+
     
