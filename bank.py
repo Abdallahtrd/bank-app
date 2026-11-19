@@ -6,7 +6,7 @@ class Bank:
         self.account_storage = {}
 
 
-    def create_account(self,pin):
+    def create_account(self,pin,name):
         prefix = '534'
         
         while True:
@@ -16,7 +16,7 @@ class Bank:
             else:
                 break
 
-        account_object = Account(0,pin,temp_number)
+        account_object = Account(0,pin,temp_number,name)
         self.account_storage[temp_number] = account_object
         return account_object
 
