@@ -4,6 +4,68 @@ from authentication import Authentication
 bank = Bank()
 authentication = Authentication(bank)
 
+def dashboard(login_account):
+    logout_confirmed = False
+    while True:
+            print("*"*40)
+            print(f"WELCOME {login_account.name}!!! ")
+            print(f"ACCOUNT BALANCE N {login_account.balance} ")
+            print("*"*40)
+            print("1. DEPOSIT ")
+            print("2. WITHDRAW ")
+            print("3. CHECK HISTORY")
+            print("4. LOG OUT")
+            choice = input("WHAT WOULD YOU LIKE TO DO?: ").strip()
+            if choice.isdigit() is False:
+                print("PLEASE INPUT A VALID DIGIT")
+                continue
+            if choice == "1":
+                while True:
+                    try:
+                        deposit_amount = int(input("HOW MUCH WOULD YOU LIKE TO DEPOSIT?: ").strip())
+                    except ValueError:
+                        print("ENTER A VALID AMOUNT")
+                        continue
+                    login_account.deposit(deposit_amount)
+                    break
+            elif choice == "2":
+                while True:
+                    try:
+                        withdraw_amount = int(input("HOW MUCH WOULD YOU LIKE TO WITHDRAW?:  ").strip())
+                    except ValueError:
+                        print("PLEASE INPUT A VALID DIGIT")
+                        continue
+                    login_account.withdraw(withdraw_amount)
+                    break
+            elif choice == "3":
+                #I might need the bank as an argument here
+                print(f"HERE'S YOUR HISTORY {login_account.history}")
+            elif choice == "4":
+                
+                while True:
+                    confirmation = input("ARE YOU SURE YOU WANT TO LOG OUT? (Y/N)").lower().strip()
+                    if confirmation == "y":
+                        logout_confirmed = True
+                        break  
+                    
+                
+                    elif confirmation == "n":
+                        break
+                    else:
+                        print("ENTER VALID INPUT")
+                        continue    
+
+            else:
+                print("ENTER A VALID INPUT")
+                continue
+
+            if logout_confirmed is True:
+                break
+                        
+             
+                    
+
+
 while True:
     print("WELCOME TO ABDALLAHS' BANK")
     print("*"*45)
@@ -21,7 +83,7 @@ while True:
 
     if choice == 1:
         while True:
-            user_name = input("Please Input Your Full Name: ").strip()
+            user_name = input("Please Input Your Full Name: ").strip().upper()
             if user_name.replace(" ","").isalpha() == False:
                 print("Please Input a valid name")
                 continue
@@ -57,10 +119,12 @@ while True:
             if pin_verifies is False:
                 print("Your information is incorrect")
                 continue
-            print(f"WELCOME {login_account.name}!!!")
+            dashboard(login_account)
             break
 
-        
+    
 
     elif choice == 3:
         break
+
+    
